@@ -11,6 +11,7 @@ namespace DotnetSpider.DataFlow.Storage.Model
 		public string Type { get; set; }
 		public int Length { get; set; } = 255;
 		public bool Required { get; set; }
+		public string SqlDbType { get; set; }
 
 		/// <summary>
 		/// 属性反射，用于设置解析值到实体对象

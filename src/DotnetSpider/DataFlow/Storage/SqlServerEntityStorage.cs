@@ -305,7 +305,9 @@ namespace DotnetSpider.DataFlow.Storage
 		protected virtual string GenerateColumnSql(Column column, bool isPrimary)
 		{
 			var columnName = GetNameSql(column.Name);
-			var dataType = GenerateDataTypeSql(column.Type, column.Length);
+			var dataType = string.IsNullOrEmpty(column.SqlDbType)
+				? GenerateDataTypeSql(column.Type, column.Length)
+				: column.SqlDbType;
 			if (isPrimary || column.Required)
 			{
 				dataType = $"{dataType} NOT NULL";
@@ -370,7 +372,7 @@ namespace DotnetSpider.DataFlow.Storage
 				}
 				default:
 				{
-					dataType = length <= 0 || length > 8000 ? "NVARCHAR(MAX)" : $"VARCHAR({length})";
+					dataType = length <= 0 || length > 8000 ? "NVARCHAR(MAX)" : $"NVARCHAR({length})";
 					break;
 				}
 			}

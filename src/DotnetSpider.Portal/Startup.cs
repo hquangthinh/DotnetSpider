@@ -135,7 +135,7 @@ namespace DotnetSpider.Portal
                     default:
                     {
                         if (conn.QuerySingle<int>(
-                                $"SELECT COUNT(*) from sysobjects WHERE id = object_id(N'[dbo].[QRTZ_FIRED_TRIGGERS]') AND OBJECTPROPERTY(id, N'') = IsUserTable") ==
+                                $"SELECT COUNT(*) from sysobjects WHERE id = object_id(N'[dbo].[QRTZ_FIRED_TRIGGERS]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1") ==
                             0
                         )
                         {

@@ -22,5 +22,19 @@ namespace DotnetSpider.MySql
 			builder.Services.AddSingleton<IStatisticsStore, MySqlStatisticsStore>();
 			return builder;
 		}
+
+		// public static DownloadAgentRegisterCenterBuilder UseSqlServer(
+		// 	this DownloadAgentRegisterCenterBuilder builder)
+		// {
+		// 	builder.Services.AddSingleton<IDownloaderAgentStore, SqlServerDownloaderAgentStore>();
+		// 	return builder;
+		// }
+		//
+		// public static StatisticsBuilder UseSqlServer(this StatisticsBuilder builder)
+		// {
+		// 	Check.NotNull(builder, nameof(builder));
+		// 	builder.Services.AddSingleton<IStatisticsStore, SqlServerStatisticsStore>();
+		// 	return builder;
+		// }
 	}
 }

@@ -11,7 +11,8 @@ namespace DotnetSpider.Sample
 	{
 		static void Main(string[] args)
 		{
-			Startup.Execute<EntitySpider>(args);
+			// Startup.Execute<OnlineStoreBhxHomeProductSpider>(args);
+			Startup.Execute<OnlineStoreBhxCategorySpider>(args);
 			Console.Read();
 		}
 	}

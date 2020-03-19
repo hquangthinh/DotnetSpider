@@ -207,7 +207,7 @@ namespace DotnetSpider.DataFlow.Storage
 					}
 				default:
 					{
-						dataType = length <= 0 || length > 8000 ? "TEXT" : $"VARCHAR({length})";
+						dataType = length <= 0 || length > 8000 ? "TEXT" : $"NVARCHAR({length})";
 						break;
 					}
 			}

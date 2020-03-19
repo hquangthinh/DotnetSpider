@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Linq.Expressions;
 using DotnetSpider.Common;
@@ -67,6 +68,13 @@ namespace DotnetSpider.DataFlow.Storage.Model
 				if (stringLength != null)
 				{
 					column.Length = stringLength.MaximumLength;
+				}
+
+				var columnAttr = (ColumnAttribute)property.GetCustomAttributes(typeof(ColumnAttribute), false)
+					.FirstOrDefault();
+				if (columnAttr != null && !string.IsNullOrEmpty(columnAttr.TypeName))
+				{
+					column.SqlDbType = columnAttr.TypeName;
 				}
 
 				_tableMetadata.Value.Columns.Add(property.Name, column);

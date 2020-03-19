@@ -11,6 +11,8 @@ namespace DotnetSpider.Portal.Entity
 		/// 主键
 		/// </summary>
 		[Column("id")]
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
 		/// <summary>
