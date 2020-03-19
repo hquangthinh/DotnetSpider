@@ -210,3 +210,5 @@ FakesAssemblies/
 *.nuget.g.props
 project.assets.json
 project.packagespec.json
+src/DotnetSpider.Sample/logs/
+src/DotnetSpider.Sample/logs/20200319/dotnet-spider-20200319
