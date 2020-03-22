@@ -11,8 +11,12 @@ namespace DotnetSpider.Sample
 	{
 		static void Main(string[] args)
 		{
+			// NvshensSpider.Run();
 			// Startup.Execute<OnlineStoreBhxHomeProductSpider>(args);
-			Startup.Execute<OnlineStoreBhxCategorySpider>(args);
+			// Startup.Execute<OnlineStoreBhxCategorySpider>(args);
+			// Startup.Execute<OnlineStoreVinmartCategorySpider>(args);
+			// Startup.Execute<OnlineStoreVinmartPopularProductSpider>(args);
+			Startup.Execute<OnlineStoreVinmartProductDetailSpider>(args);
 			Console.Read();
 		}
 	}

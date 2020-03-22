@@ -41,7 +41,7 @@ namespace DotnetSpider.Portal
             services.AddDownloadCenter(x => x.UseMySql());
             services.AddStatisticsCenter(x => x.UseMySql());
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             // Add DbContext
             Action<DbContextOptionsBuilder> dbContextOptionsBuilder;
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
