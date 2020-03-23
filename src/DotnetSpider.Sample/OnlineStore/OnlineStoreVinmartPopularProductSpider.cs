@@ -234,18 +234,22 @@ namespace DotnetSpider.Sample.samples
 	class GrandNodePopularProductStorage : EntityStorageBase
 	{
 		private static readonly HttpClient HttpClient = new HttpClient();
+		private string token;
+
+		public override async Task InitAsync()
+		{
+			await base.InitAsync();
+			token = await GrandNodeOdataApiServices.GenerateToken();
+			GrandNodeOdataApiServices.InitContainer(token, GrandNodeOdataApiServices.StoreUrl);
+		}
 
 		protected override async Task<DataFlowResult> Store(DataFlowContext context)
 		{
 			var items = context.GetParseData();
 			if(items.Keys.Any() && items["DotnetSpider.Sample.samples.VinmartProductEntry"] is ParseResult<VinmartProductEntry> products)
 			{
-				var token = await GrandNodeOdataApiServices.GenerateToken();
-
 				if(string.IsNullOrEmpty(token))
 					return DataFlowResult.Failed;
-
-				GrandNodeOdataApiServices.InitContainer(token, GrandNodeOdataApiServices.StoreUrl);
 
 				await DeleteExistingAutoCreatedProductsAsync();
 
