@@ -13,7 +13,7 @@ namespace DotnetSpider.Sample.GrandNode
 	public class GrandNodeOdataApiServices
 	{
 		public static string StoreUrl = "http://localhost:16593";
-		private static string UserName = "admin@yourstore.com";
+		private static string UserName = "dev@vsales.dev";
 		private static string Password = "123Qwe";
 		private static string Token;
 		private static Container container;

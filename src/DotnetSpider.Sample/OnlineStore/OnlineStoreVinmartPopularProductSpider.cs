@@ -39,7 +39,7 @@ namespace DotnetSpider.Sample.samples
 			AddDataFlow(new VinmartPopularProductListDataParser())
 				.AddDataFlow(new VinmartProductDetailDataParser())
 				// .AddDataFlow(new ConsoleStorage())
-				.AddDataFlow(GetDefaultStorage())
+				// .AddDataFlow(GetDefaultStorage())
 				.AddDataFlow(new GrandNodePopularProductStorage());
 			await AddRequests(
 				new Request("https://vinmart.com/products/collection/san-pham-ban-chay-38/", new Dictionary<string, string> {{"PopularProducts", "PopularProducts"}})
@@ -235,12 +235,17 @@ namespace DotnetSpider.Sample.samples
 	{
 		private static readonly HttpClient HttpClient = new HttpClient();
 		private string token;
+		private string productTemplateId = "5e79e2425de03e6770c8529b";
 
 		public override async Task InitAsync()
 		{
 			await base.InitAsync();
+
 			token = await GrandNodeOdataApiServices.GenerateToken();
+
 			GrandNodeOdataApiServices.InitContainer(token, GrandNodeOdataApiServices.StoreUrl);
+
+			await DeleteExistingAutoCreatedProductsAsync();
 		}
 
 		protected override async Task<DataFlowResult> Store(DataFlowContext context)
@@ -250,8 +255,6 @@ namespace DotnetSpider.Sample.samples
 			{
 				if(string.IsNullOrEmpty(token))
 					return DataFlowResult.Failed;
-
-				await DeleteExistingAutoCreatedProductsAsync();
 
 				foreach (var product in products)
 				{
@@ -266,7 +269,7 @@ namespace DotnetSpider.Sample.samples
 							SeName = product.Name.RemoveDiacritics().Replace(" ", "-"),
 							ShortDescription = product.Name,
 							FullDescription = $"{product.ShortDescription} {product.FullDescription}",
-							ProductTemplateId = "5e3c32c8504e9c00e8424765",
+							ProductTemplateId = productTemplateId,
 							ShowOnHomePage = true,
 							DisplayOrder = 0,
 							Published = true,
@@ -354,10 +357,17 @@ namespace DotnetSpider.Sample.samples
 
 		private async Task DeleteExistingAutoCreatedProductsAsync()
 		{
-			var products = await GrandNodeOdataApiServices.GetProductsAsync();
-			foreach (var product in products)
+			try
 			{
-				GrandNodeOdataApiServices.DeleteProduct(product);
+				var products = await GrandNodeOdataApiServices.GetProductsAsync();
+				foreach (var product in products)
+				{
+					GrandNodeOdataApiServices.DeleteProduct(product);
+				}
+			}
+			catch (Exception e)
+			{
+				Logger.LogError(e.ToString());
 			}
 		}
 	}
